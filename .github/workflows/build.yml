@@ -1,0 +1,21 @@
+name: Build APK
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build with Bulldozer
+        uses: 3sh/bulldozer-action@v0.1.0
+        with:
+          args: bulldozer android debug
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: package
+          path: bin/*.apk
